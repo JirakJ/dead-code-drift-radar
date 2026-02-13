@@ -227,6 +227,43 @@
 - [ ] Marketplace listing
 - [ ] Git tag `v2026.2.1`
 
+## Fáze 13: Git Enhancement — Ghost Code Detection
+
+- [ ] `GhostCodeDetector.kt` — detekce uncommitted kódu bez referencí
+  - [ ] Integrace s `ChangeListManager` pro seznam untracked/modified souborů
+  - [ ] Reference count přes `ReferenceGraphBuilder` pro ghost elementy
+  - [ ] `GhostCodeEntry` datový model (file, git status, references, confidence)
+- [ ] Tool window panel „Ghost Code" s ikonou 👻
+  - [ ] Seznam ghost souborů/elementů s dobou od poslední modifikace
+  - [ ] Quick-fix actions: „Stage & Commit", „Delete", „Add to .gitignore"
+- [ ] Konfigurovatelné ignorované cesty (glob patterns)
+- [ ] Unit testy + integrační testy s test git repo
+
+## Fáze 14: Git Enhancement — Zombie Branch Detector
+
+- [ ] `ZombieBranchDetector.kt` — detekce stale a zombie branches
+  - [ ] Skenování lokálních branches přes `GitBranchUtil`
+  - [ ] `ZombieBranch` datový model (name, last commit, author, ahead/behind)
+  - [ ] Threshold konfigurace: STALE (30–90 dní), ZOMBIE (90+ dní)
+  - [ ] Auto-detect hlavní branch (main/master)
+- [ ] Tool window panel „Zombie Branches"
+  - [ ] Barevné kódování: 🟡 Stale, 🔴 Zombie
+  - [ ] Actions: „Switch to Branch", „Delete Branch", „Cherry-pick Commits"
+- [ ] Notifikace při detekci nových zombie branches (max 1× týdně)
+- [ ] Unit testy
+
+## Fáze 15: Git Enhancement — Remote Drift Analysis
+
+- [ ] `RemoteDriftAnalyzer.kt` — analýza lokálního driftu od origin
+  - [ ] Porovnání HEAD vs. `origin/main` přes `git rev-list` a `git diff --stat`
+  - [ ] `RemoteDriftEntry` datový model (file, lines added/removed, drift score, direction)
+  - [ ] `DriftDirection` enum: LOCAL_AHEAD, REMOTE_AHEAD, DIVERGED, SYNCED
+- [ ] Project View dekorace: drift ikona (↕️) u divergujících souborů
+- [ ] Automatický fetch s konfigurovatelným intervalem (default 30 min)
+- [ ] Actions: „Fetch & Compare", „Rebase onto Remote", „Show Diff"
+- [ ] Integrace s existujícím drift score (remote drift jako dodatečný faktor)
+- [ ] Unit testy + integrační testy
+
 ---
 
 ## Budoucí fáze (Paid)
