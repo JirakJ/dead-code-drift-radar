@@ -1,0 +1,80 @@
+<idea-plugin>
+  <id>com.jakubjirak.deadcoderadar</id>
+  <name>Dead Code &amp; Drift Radar</name>
+  <vendor email="jakub@jirak.dev" url="https://github.com/jakubjirak">Jakub Jirák</vendor>
+
+  <description><![CDATA[
+    <h2>Dead Code & Drift Radar</h2>
+    <p>Combines git history analysis with static analysis to identify code that's drifting toward
+    becoming dead code. Tracks how often code is modified, referenced, and tested to produce a
+    code health score.</p>
+
+    <h3>Features</h3>
+    <ul>
+        <li><b>Drift score</b> — 0-100 health score for every code element</li>
+        <li><b>Gutter icons</b> — see drift level at a glance (🟢 Active, 🟡 Drifting, 🔴 Dead)</li>
+        <li><b>Tool window</b> — sortable dashboard of all elements by drift score</li>
+        <li><b>Git analysis</b> — modification frequency, last modified date</li>
+        <li><b>Reference analysis</b> — counts usages of code elements</li>
+        <li><b>Configurable thresholds</b> — customize drift level boundaries</li>
+    </ul>
+
+    <h3>Part of Code Health Suite</h3>
+    <p>Works alongside <b>Docstring Freshness Monitor</b> for comprehensive code health tracking.</p>
+    ]]></description>
+
+  <depends>com.intellij.modules.platform</depends>
+  <depends optional="true" config-file="git4idea-extensions.xml">Git4Idea</depends>
+
+  <extensions defaultExtensionNs="com.intellij">
+    <!-- Settings -->
+    <applicationConfigurable
+        id="com.jakubjirak.deadcoderadar.settings"
+        parentId="tools"
+        displayName="Dead Code &amp; Drift Radar"
+        instance="com.jakubjirak.deadcoderadar.settings.DeadCodeRadarConfigurable"/>
+
+    <applicationService
+        serviceImplementation="com.jakubjirak.deadcoderadar.settings.DeadCodeRadarSettings"/>
+
+    <!-- Tool window -->
+    <toolWindow
+        id="Drift Radar"
+        anchor="bottom"
+        secondary="true"
+        icon="/icons/toolwindow.svg"
+        factoryClass="com.jakubjirak.deadcoderadar.ui.DriftRadarToolWindowFactory"/>
+
+    <!-- Notification group -->
+    <notificationGroup
+        id="Dead Code Drift Radar"
+        displayType="BALLOON"
+        toolWindowId="Drift Radar"/>
+
+    <!-- Project service for drift engine -->
+    <projectService
+        serviceImplementation="com.jakubjirak.deadcoderadar.engine.DriftDetectionEngine"/>
+  </extensions>
+
+  <actions>
+    <group id="com.jakubjirak.deadcoderadar.ActionGroup"
+           text="Drift Radar"
+           description="Dead Code &amp; Drift Radar actions"
+           popup="true"
+           icon="/icons/toolwindow.svg">
+      <add-to-group group-id="ToolsMenu" anchor="last"/>
+
+      <action id="com.jakubjirak.deadcoderadar.ScanProjectAction"
+              class="com.jakubjirak.deadcoderadar.actions.ScanProjectAction"
+              text="Scan Project for Drift"
+              description="Analyze all project files for code drift"
+              icon="AllIcons.Actions.Execute"/>
+
+      <action id="com.jakubjirak.deadcoderadar.ScanFileAction"
+              class="com.jakubjirak.deadcoderadar.actions.ScanFileAction"
+              text="Scan Current File for Drift"
+              description="Analyze the current file for code drift"
+              icon="AllIcons.Actions.Find"/>
+    </group>
+  </actions>
+</idea-plugin>
