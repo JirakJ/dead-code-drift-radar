@@ -5,24 +5,36 @@
   <vendor email="jakub@jirak.dev" url="https://github.com/jakubjirak">Jakub Jirák</vendor>
 
   <description><![CDATA[
-    <h2>Dead Code & Drift Radar</h2>
-    <p>Combines git history analysis with static analysis to identify code that's drifting toward
-    becoming dead code. Tracks how often code is modified, referenced, and tested to produce a
-    code health score.</p>
+<h2>Dead Code &amp; Drift Radar</h2>
+<p>
+  Find code that's quietly dying. Dead Code &amp; Drift Radar combines Git history analysis with static
+  reference counting to assign a <b>drift score</b> (0–100) to every code element — showing you exactly
+  which classes, methods, and modules are drifting toward obsolescence.
+</p>
 
-    <h3>Features</h3>
-    <ul>
-        <li><b>Drift score</b> — 0-100 health score for every code element</li>
-        <li><b>Gutter icons</b> — see drift level at a glance (🟢 Active, 🟡 Drifting, 🔴 Dead)</li>
-        <li><b>Tool window</b> — sortable dashboard of all elements by drift score</li>
-        <li><b>Git analysis</b> — modification frequency, last modified date</li>
-        <li><b>Reference analysis</b> — counts usages of code elements</li>
-        <li><b>Configurable thresholds</b> — customize drift level boundaries</li>
-    </ul>
+<h2>Key Features</h2>
+<ul>
+  <li><b>Drift Scoring (0–100)</b> — Quantified health metric for code elements based on usage and activity</li>
+  <li><b>Git History Analysis</b> — Tracks modification frequency, last-modified dates, and contributor activity</li>
+  <li><b>Reference Counting</b> — Static analysis of usage and call-site frequency</li>
+  <li><b>Gutter Icons</b> — Color-coded health indicators (green/yellow/red) in the editor</li>
+  <li><b>Dashboard</b> — Project-wide drift overview sorted by score, with trend charts</li>
+  <li><b>Configurable Thresholds</b> — Set team standards for when code is considered drifting or dead</li>
+</ul>
 
-    <h3>Part of Code Health Suite</h3>
-    <p>Works alongside <b>Docstring Freshness Monitor</b> for comprehensive code health tracking.</p>
-    ]]></description>
+<h2>Why Dead Code &amp; Drift Radar?</h2>
+<p>
+  Dead code increases maintenance costs and cognitive load. By combining git signals with static analysis,
+  this plugin surfaces code that other tools miss — the kind that's technically referenced but practically
+  abandoned.
+</p>
+
+<h2>Free vs Pro</h2>
+<ul>
+  <li><b>Free:</b> Drift scoring, gutter icons, reference counting, basic dashboard</li>
+  <li><b>Pro:</b> Full git history analysis, trend charts, team drift reports, CI/CD integration, auto-quarantine suggestions, and module-level dependency drift</li>
+</ul>
+]]></description>
 
   <depends>com.intellij.modules.platform</depends>
   <depends optional="true" config-file="git4idea-extensions.xml">Git4Idea</depends>
