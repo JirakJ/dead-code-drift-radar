@@ -2,39 +2,47 @@
   <id>com.jakubjirak.deadcoderadar</id>
     <product-descriptor code="PDEADCODERADAR" release-date="20260215" release-version="20262" optional="true"/>
   <name>Dead Code &amp; Drift Radar</name>
-  <vendor email="jakub@jirak.dev" url="https://github.com/jakubjirak">Jakub Jirák</vendor>
+  <vendor email="support@jakubjirak.com" url="https://github.com/jakubjirak">Jakub Jirák</vendor>
 
   <description><![CDATA[
-<h2>Dead Code &amp; Drift Radar</h2>
-<p>
-  Find code that's quietly dying. Dead Code &amp; Drift Radar combines Git history analysis with static
-  reference counting to assign a <b>drift score</b> (0–100) to every code element — showing you exactly
-  which classes, methods, and modules are drifting toward obsolescence.
-</p>
+<h2>Dead Code & Drift Radar — Find Forgotten Code Before It Becomes Debt</h2>
 
-<h2>Key Features</h2>
+<p>Identify abandoned, drifting, and dead code in your project using git history and static analysis. 
+Every file gets a drift score (0-100) so you know exactly what's actively maintained and what's rotting.</p>
+
+<h3>Core Features</h3>
 <ul>
-  <li><b>Drift Scoring (0–100)</b> — Quantified health metric for code elements based on usage and activity</li>
-  <li><b>Git History Analysis</b> — Tracks modification frequency, last-modified dates, and contributor activity</li>
-  <li><b>Reference Counting</b> — Static analysis of usage and call-site frequency</li>
-  <li><b>Gutter Icons</b> — Color-coded health indicators (green/yellow/red) in the editor</li>
-  <li><b>Dashboard</b> — Project-wide drift overview sorted by score, with trend charts</li>
-  <li><b>Configurable Thresholds</b> — Set team standards for when code is considered drifting or dead</li>
+    <li><b>Drift Score</b> — 0-100 health metric combining git history and reference analysis</li>
+    <li><b>Gutter Icons</b> — Color-coded indicators (🟢 Active, 🟡 Drifting, 🔴 Abandoned)</li>
+    <li><b>Hover Tooltips</b> — Author, last change, reference count, and drift breakdown</li>
+    <li><b>Project View Badges</b> — See drift status without opening files</li>
+    <li><b>Configurable Thresholds</b> — Define your own standards for drift boundaries</li>
 </ul>
 
-<h2>Why Dead Code &amp; Drift Radar?</h2>
-<p>
-  Dead code increases maintenance costs and cognitive load. By combining git signals with static analysis,
-  this plugin surfaces code that other tools miss — the kind that's technically referenced but practically
-  abandoned.
-</p>
-
-<h2>Free vs Pro</h2>
+<h3>Pro Features ($3.90/month)</h3>
 <ul>
-  <li><b>Free:</b> Drift scoring, gutter icons, reference counting, basic dashboard</li>
-  <li><b>Pro:</b> Full git history analysis, trend charts, team drift reports, CI/CD integration, auto-quarantine suggestions, and module-level dependency drift</li>
+    <li>Method-level drift scores</li>
+    <li>Project heatmap visualization</li>
+    <li>Trend analysis and cleanup backlog</li>
+    <li>Zombie and orphan code detection</li>
+    <li>Safe-to-remove confidence scores</li>
+    <li>Export reports (SARIF, JUnit XML)</li>
+    <li>CI integration via Gradle task</li>
 </ul>
-]]></description>
+
+<h3>Requirements</h3>
+<ul>
+    <li>IntelliJ IDEA 2024.1+ (or any JetBrains IDE)</li>
+    <li>Git repository</li>
+</ul>
+
+<h3>Support</h3>
+<p>
+    <a href="https://github.com/JirakJ/dead-code-drift-radar/issues">Documentation</a> |
+    <a href="https://github.com/JirakJ/dead-code-drift-radar/issues">Issue Tracker</a> |
+    <a href="https://github.com/JirakJ/dead-code-drift-radar/issues">Contact Support</a>
+</p>
+    ]]></description>
 
   <depends>com.intellij.modules.platform</depends>
   <depends optional="true" config-file="git4idea-extensions.xml">Git4Idea</depends>
@@ -90,4 +98,19 @@
               icon="AllIcons.Actions.Find"/>
     </group>
   </actions>
+    <change-notes><![CDATA[
+        <h3>What's New</h3>
+        <ul>
+            <li><b>Drift Score Analysis</b> - Calculates a 0-100 health metric for every file based on git history and code references</li>
+            <li><b>Visual Gutter Icons</b> - Color-coded indicators (green/yellow/red) showing code freshness directly in the editor</li>
+            <li><b>Hover Tooltips</b> - Detailed information on author, last change date, reference count, and drift factors</li>
+            <li><b>Project View Badges</b> - File-level drift status visible in the project explorer</li>
+            <li><b>Git History Analysis</b> - Tracks modification frequency, last modified dates, and contributor activity</li>
+            <li><b>Reference Counting</b> - Identifies incoming usages and call sites for each code element</li>
+            <li><b>Configurable Thresholds</b> - Customize drift score boundaries to match your team's standards</li>
+            <li><b>Method-Level Granularity (Pro)</b> - Drift scores for individual methods, not just files</li>
+            <li><b>Project Heatmap (Pro)</b> - Visual heatmap showing drift hotspots across your entire project</li>
+            <li><b>Export Reports (Pro)</b> - Generate SARIF and JUnit XML reports for CI integration</li>
+        </ul>
+    ]]></change-notes>
 </idea-plugin>
