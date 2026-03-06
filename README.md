@@ -8,7 +8,6 @@
 
 ## ✨ Features
 
-### Free Tier
 - **Drift score** — 0–100 health score for every file based on git history and usage analysis
 - **Gutter icons** — see drift level at a glance (🟢 Active, 🟡 Drifting, 🔴 Abandoned)
 - **Hover tooltips** — last author, last change, reference count, drift factors
@@ -17,8 +16,6 @@
 - **Reference analysis** — counts incoming usages of code elements
 - **Configurable thresholds** — customize drift level boundaries
 - **Single-module analysis**
-
-### Pro Tier ($3.90/month)
 - **Method-level granularity** — drift scores for individual methods, not just files
 - **Project heatmap** — tool window with heatmap visualization of drift scores
 - **Module-level aggregation** — see drift across your entire project structure
@@ -94,7 +91,7 @@ Create a `.drift-radar.yaml` in your repository root for shared team settings. U
 ### Dashboard
 - Open the **Drift Radar** tool window from the bottom panel
 - Sort elements by drift score to find the most at-risk code
-- Use the cleanup backlog to prioritize refactoring (Pro)
+- Use the cleanup backlog to prioritize refactoring
 
 ## 🔌 Actions
 

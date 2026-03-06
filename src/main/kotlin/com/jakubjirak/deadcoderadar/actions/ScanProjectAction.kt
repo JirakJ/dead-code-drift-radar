@@ -11,12 +11,10 @@ import com.intellij.openapi.progress.ProgressManager
 import com.intellij.openapi.progress.Task
 import com.intellij.openapi.wm.ToolWindowManager
 import com.jakubjirak.deadcoderadar.engine.DriftDetectionEngine
-import com.jakubjirak.deadcoderadar.licensing.FreemiumGate
 import com.jakubjirak.deadcoderadar.ui.DriftRadarPanel
 
 /**
  * Action to scan the entire project for code drift.
- * Requires paid license for project-wide scanning.
  */
 class ScanProjectAction : AnAction() {
     override fun getActionUpdateThread(): ActionUpdateThread = ActionUpdateThread.BGT
@@ -25,17 +23,6 @@ class ScanProjectAction : AnAction() {
     override fun actionPerformed(e: AnActionEvent) {
         val project = e.project ?: return
         LOG.info("Starting project drift scan")
-
-        if (!FreemiumGate.getInstance().isPaidFeatureAvailable(FreemiumGate.FEATURE_PROJECT_SCAN)) {
-            NotificationGroupManager.getInstance()
-                .getNotificationGroup("Dead Code Drift Radar")
-                .createNotification(
-                    "Upgrade to Pro for project-wide scanning",
-                    NotificationType.INFORMATION,
-                )
-                .notify(project)
-            return
-        }
 
         ProgressManager.getInstance().run(object : Task.Backgroundable(
             project, "Scanning project for drift...", true
