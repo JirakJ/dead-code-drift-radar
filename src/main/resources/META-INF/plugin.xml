@@ -1,6 +1,5 @@
 <idea-plugin>
   <id>com.jakubjirak.deadcoderadar</id>
-    <product-descriptor code="PDEADCODERADAR" release-date="20260215" release-version="20262" optional="true"/>
   <name>Dead Code &amp; Drift Radar</name>
   <vendor email="support@jakubjirak.com" url="https://github.com/jakubjirak">Jakub Jirák</vendor>
 
@@ -108,9 +107,9 @@ Every file gets a drift score (0-100) so you know exactly what's actively mainta
             <li><b>Git History Analysis</b> - Tracks modification frequency, last modified dates, and contributor activity</li>
             <li><b>Reference Counting</b> - Identifies incoming usages and call sites for each code element</li>
             <li><b>Configurable Thresholds</b> - Customize drift score boundaries to match your team's standards</li>
-            <li><b>Method-Level Granularity (Pro)</b> - Drift scores for individual methods, not just files</li>
-            <li><b>Project Heatmap (Pro)</b> - Visual heatmap showing drift hotspots across your entire project</li>
-            <li><b>Export Reports (Pro)</b> - Generate SARIF and JUnit XML reports for CI integration</li>
+            <li><b>Method-Level Granularity</b> - Drift scores for individual methods, not just files</li>
+            <li><b>Project Heatmap</b> - Visual heatmap showing drift hotspots across your entire project</li>
+            <li><b>Export Reports</b> - Generate SARIF and JUnit XML reports for CI integration</li>
         </ul>
     ]]></change-notes>
 </idea-plugin>
