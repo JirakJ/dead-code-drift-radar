@@ -2,6 +2,8 @@
   <id>com.jakubjirak.deadcoderadar</id>
   <name>Dead Code &amp; Drift Radar</name>
   <vendor email="support@jakubjirak.com" url="https://github.com/jakubjirak">Jakub Jirák</vendor>
+    <product-descriptor code="PDEADCODEDRIFTR" release-date="20260418" release-version="20263" optional="true"/>
+
 
   <description><![CDATA[<h2>Dead Code & Drift Radar — Find Forgotten Code Before It Becomes Debt</h2>
 
