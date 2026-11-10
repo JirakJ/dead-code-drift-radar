@@ -34,7 +34,7 @@ _(168 characters)_
 
 ### ✨ Key Features
 
-#### 🆓 Free — Spot Drifting Code Instantly
+#### Spot Drifting Code Instantly
 
 - 📊 **Drift Score (0–100)** — Health score combining git history, modification frequency, author activity, and reference counts
 - 🚦 **Gutter Icons** — Color-coded status at a glance: 🟢 Active, 🟡 Drifting, 🔴 Abandoned
@@ -45,7 +45,7 @@ _(168 characters)_
 - ⚙️ **Configurable Thresholds** — Customize what counts as active, cooling, drifting, or abandoned
 - 📦 **Single-Module Analysis** — Works out of the box for single-module projects
 
-#### 💎 Pro — $3.90/month
+#### Advanced Features
 
 - 🔬 **Method-Level Granularity** — Individual drift scores for every method, not just files
 - 🗺️ **Project Heatmap** — Visual heatmap in a dedicated tool window showing hotspots and cold zones
@@ -62,12 +62,9 @@ _(168 characters)_
 
 ---
 
-### 💰 Pricing Model
+### 💰 Pricing
 
-| Tier     | Price       | Highlights                                              |
-|----------|-------------|---------------------------------------------------------|
-| **Free** | $0          | Drift scores, gutter icons, tooltips, file badges, configurable thresholds |
-| **Pro**  | $3.90/month | Method-level analysis, heatmap, trend analysis, cleanup backlog, zombie/orphan detection, CI integration |
+Free & open source (Apache-2.0) — every feature is available to everyone, no license needed.
 
 ---
 
@@ -119,11 +116,11 @@ _(168 characters)_
 | 1  | **Gutter icons in editor** — Shows 🟢 Active, 🟡 Drifting, and 🔴 Abandoned indicators next to code elements |
 | 2  | **Hover tooltip detail** — Expanded tooltip showing last author, last change, reference count, and drift factor weights |
 | 3  | **Project View file badges** — Drift status badges visible on files and directories in the tree |
-| 4  | **Project heatmap tool window** — Visual heatmap showing hotspots (active) and cold zones (abandoned) across the project (Pro) |
-| 5  | **Cleanup backlog panel** — Prioritized list of removal candidates with safe-to-remove confidence scores (Pro) |
-| 6  | **Trend analysis chart** — Graph showing drift trajectory over time for selected code elements (Pro) |
+| 4  | **Project heatmap tool window** — Visual heatmap showing hotspots (active) and cold zones (abandoned) across the project |
+| 5  | **Cleanup backlog panel** — Prioritized list of removal candidates with safe-to-remove confidence scores |
+| 6  | **Trend analysis chart** — Graph showing drift trajectory over time for selected code elements |
 | 7  | **Settings panel** — Configurable thresholds for active/cooling/drifting/abandoned boundaries |
-| 8  | **CI integration output** — Terminal showing `./gradlew driftRadar` output with SARIF results (Pro) |
+| 8  | **CI integration output** — Terminal showing `./gradlew driftRadar` output with SARIF results |
 
 ---
 
@@ -182,9 +179,6 @@ _(168 characters)_
 - [ ] Screenshots are high-resolution (1280×800 or higher), PNG format
 - [ ] Plugin ID matches `gradle.properties` and `plugin.xml`
 - [ ] `plugin.xml` vendor email and URL are correct
-- [ ] Pricing tiers configured in JetBrains Marketplace seller dashboard
-- [ ] Product code `PDEADCODERADAR` is registered
-- [ ] License agreement / EULA uploaded
 - [ ] Compatibility range tested on minimum supported IDE version (2024.3)
 - [ ] Plugin verified with Plugin Verifier (`runPluginVerifier` Gradle task)
 - [ ] CHANGELOG.md is up to date for the release version

@@ -1,8 +1,8 @@
 # Dead Code & Drift Radar
 
 [![Build](https://github.com/JirakJ/dead-code-drift-radar/actions/workflows/build.yml/badge.svg)](https://github.com/JirakJ/dead-code-drift-radar/actions/workflows/build.yml)
-[![Version](https://img.shields.io/badge/version-2026.2.2-blue.svg)](https://github.com/JirakJ/dead-code-drift-radar/releases)
-[![License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
+[![Version](https://img.shields.io/badge/version-2026.8.0-blue.svg)](https://github.com/JirakJ/dead-code-drift-radar/releases)
+[![License](https://img.shields.io/badge/license-Apache--2.0-blue)](LICENSE)
 
 > Combines git history analysis with static analysis to identify code that's drifting toward becoming dead code. Tracks how often code is modified, referenced, and tested to produce a code health score.
 
@@ -116,8 +116,16 @@ cd dead-code-drift-radar
 
 ## 📝 License
 
-MIT — [LICENSE](LICENSE)
+Apache License 2.0 — see [LICENSE](LICENSE) and [NOTICE](NOTICE).
 
 ## 👤 Author
 
 **Jakub Jirák** — [@JirakJ](https://github.com/JirakJ)
+
+## Free & open source
+
+Since version 2026.8.0 the plugin is completely free — every feature is unlocked and no license is needed. The source code is open source under the [Apache License 2.0](LICENSE).
+
+## Contributing
+
+Issues and pull requests are welcome at https://github.com/JirakJ/dead-code-drift-radar.

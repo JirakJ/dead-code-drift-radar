@@ -33,49 +33,22 @@ code element.</p>
     <li><b>Reference Analysis</b> — counts incoming usages of each code element</li>
     <li><b>Configurable Thresholds</b> — customize active, cooling, and drifting score boundaries</li>
     <li><b>Scan Actions</b> — scan entire project or current file via Tools → Drift Radar</li>
-    <li><b>Method-Level Granularity (Pro)</b> — drill down from file-level to individual method drift scores</li>
-    <li><b>Zombie Code Detection (Pro)</b> — finds code reachable only from tests or deprecated paths</li>
-    <li><b>Orphan Code Detection (Pro)</b> — identifies code without any active authors (git mailmap aware)</li>
-    <li><b>Safe-to-Remove Confidence Score (Pro)</b> — prioritize cleanup with removal risk ratings</li>
-    <li><b>Project Heatmap (Pro)</b> — visual heatmap of drift across your entire codebase</li>
-    <li><b>Module-Level Aggregation (Pro)</b> — see which modules are healthiest and which need attention</li>
-    <li><b>Trend Analysis (Pro)</b> — track whether code health is improving or declining</li>
-    <li><b>Cleanup Backlog (Pro)</b> — prioritized list of code to remove, sorted by impact</li>
-    <li><b>Multi-Module Analysis (Pro)</b> — analyze drift across all modules simultaneously</li>
-    <li><b>Export Reports (Pro)</b> — share findings with your team</li>
-    <li><b>CI Integration (Pro)</b> — <code>./gradlew driftRadar --threshold=40</code> with build failure on regression</li>
-    <li><b>SARIF + JUnit XML Output (Pro)</b> — integrate with GitHub Code Scanning and CI reporting</li>
+    <li><b>Method-Level Granularity</b> — drill down from file-level to individual method drift scores</li>
+    <li><b>Zombie Code Detection</b> — finds code reachable only from tests or deprecated paths</li>
+    <li><b>Orphan Code Detection</b> — identifies code without any active authors (git mailmap aware)</li>
+    <li><b>Safe-to-Remove Confidence Score</b> — prioritize cleanup with removal risk ratings</li>
+    <li><b>Project Heatmap</b> — visual heatmap of drift across your entire codebase</li>
+    <li><b>Module-Level Aggregation</b> — see which modules are healthiest and which need attention</li>
+    <li><b>Trend Analysis</b> — track whether code health is improving or declining</li>
+    <li><b>Cleanup Backlog</b> — prioritized list of code to remove, sorted by impact</li>
+    <li><b>Multi-Module Analysis</b> — analyze drift across all modules simultaneously</li>
+    <li><b>Export Reports</b> — share findings with your team</li>
+    <li><b>CI Integration</b> — <code>./gradlew driftRadar --threshold=40</code> with build failure on regression</li>
+    <li><b>SARIF + JUnit XML Output</b> — integrate with GitHub Code Scanning and CI reporting</li>
 </ul>
 
-<h3>Free Tier</h3>
-<ul>
-    <li>File-level drift scores (0–100)</li>
-    <li>Gutter icons and Project View badges</li>
-    <li>Hover tooltips with drift factor breakdown</li>
-    <li>Git analysis (modification frequency, recency, authors)</li>
-    <li>Reference analysis (incoming usages)</li>
-    <li>Configurable thresholds</li>
-    <li>Single-module analysis</li>
-</ul>
-
-<h3>Pro Tier ($3.90/month)</h3>
-<ul>
-    <li>Method-level drift scores</li>
-    <li>Zombie and orphan code detection</li>
-    <li>Safe-to-remove confidence score</li>
-    <li>Project heatmap and module aggregation</li>
-    <li>Trend analysis and cleanup backlog</li>
-    <li>Multi-module analysis</li>
-    <li>Export reports</li>
-    <li>CI integration with SARIF and JUnit XML output</li>
-</ul>
-
-<h3>Team Tier ($7.90/user/month)</h3>
-<ul>
-    <li>All Pro features</li>
-    <li>Team-wide drift metrics and trend reports</li>
-    <li>Technical debt reporting for management</li>
-</ul>
+<h3>Free &amp; Open Source</h3>
+<p>Every feature is free for everyone — no license, no tiers. Source code: <a href="https://github.com/JirakJ/dead-code-drift-radar">GitHub</a> (Apache-2.0).</p>
 
 <h3>Getting Started</h3>
 <ol>
@@ -103,11 +76,7 @@ Code Quality
 
 ## Pricing
 
-| Tier | Price | Features |
-|------|-------|----------|
-| Free | $0 | File-level drift scores, gutter icons, tooltips, git + reference analysis, single module |
-| Pro | $3.90/month or $39/year | Method-level scores, zombie/orphan detection, heatmap, trends, CI integration, export |
-| Team | $7.90/user/month | All Pro + team metrics, trend reports, management reporting |
+Free & open source (Apache-2.0) — every feature is available to everyone, no license needed.
 
 ## Screenshots Needed
 
