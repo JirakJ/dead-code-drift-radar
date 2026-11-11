@@ -57,10 +57,9 @@ class DriftRadarPanel(private val project: Project) : JPanel(BorderLayout()) {
         refreshData()
     }
 
+    /** Reloads cached results, keeping the currently selected level filter. */
     fun refreshData() {
-        val engine = DriftDetectionEngine.getInstance(project)
-        val results = engine.getCachedResults()
-        tableModel.setData(results)
+        applyFilter()
     }
 
     private fun applyFilter() {

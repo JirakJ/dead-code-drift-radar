@@ -4,6 +4,7 @@ import com.intellij.openapi.application.ApplicationManager
 import com.intellij.openapi.components.PersistentStateComponent
 import com.intellij.openapi.components.State
 import com.intellij.openapi.components.Storage
+import com.jakubjirak.deadcoderadar.model.DriftThresholds
 
 /**
  * Persistent settings for the Dead Code & Drift Radar plugin.
@@ -20,7 +21,6 @@ class DeadCodeRadarSettings : PersistentStateComponent<DeadCodeRadarSettings.Sta
         var coolingThreshold: Int = 50,
         var driftingThreshold: Int = 75,
         var ignoredPathsText: String = "",
-        var enabled: Boolean = true,
     )
 
     private var state = State()
@@ -43,21 +43,27 @@ class DeadCodeRadarSettings : PersistentStateComponent<DeadCodeRadarSettings.Sta
         get() = state.driftingThreshold
         set(value) { state.driftingThreshold = value }
 
-    var enabled: Boolean
-        get() = state.enabled
-        set(value) { state.enabled = value }
-
+    /** Ignored path patterns; one per line and/or comma-separated. */
     val ignoredPaths: List<String>
-        get() = state.ignoredPathsText
-            .lines()
-            .map { it.trim() }
-            .filter { it.isNotEmpty() }
+        get() = parsePatterns(state.ignoredPathsText)
+
+    /** Level boundaries as configured, sorted so that a mis-ordered configuration still classifies sanely. */
+    val thresholds: DriftThresholds
+        get() {
+            val (active, cooling, drifting) = listOf(activeThreshold, coolingThreshold, driftingThreshold).sorted()
+            return DriftThresholds(activeBelow = active, coolingBelow = cooling, driftingBelow = drifting)
+        }
 
     var ignoredPathsText: String
         get() = state.ignoredPathsText
         set(value) { state.ignoredPathsText = value }
 
     companion object {
+        internal fun parsePatterns(text: String): List<String> =
+            text.split('\n', ',')
+                .map { it.trim() }
+                .filter { it.isNotEmpty() }
+
         fun getInstance(): DeadCodeRadarSettings =
             ApplicationManager.getApplication().getService(DeadCodeRadarSettings::class.java)
     }

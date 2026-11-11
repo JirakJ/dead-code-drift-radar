@@ -20,7 +20,6 @@ class ReferenceAnalyzer(private val project: Project) {
      * Counts the number of references to a code element across the project.
      * For file-level analysis, counts references to all declarations in the file.
      */
-    @Suppress("UNUSED_PARAMETER")
     fun countReferences(element: CodeElement): Int {
         return try {
             countFileReferences(element.filePath)

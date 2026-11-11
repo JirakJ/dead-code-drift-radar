@@ -27,15 +27,19 @@ class ScanProjectAction : AnAction() {
         ProgressManager.getInstance().run(object : Task.Backgroundable(
             project, "Scanning project for drift...", true
         ) {
+            private var analyzed = 0
+
             override fun run(indicator: ProgressIndicator) {
                 indicator.isIndeterminate = true
-                val engine = DriftDetectionEngine.getInstance(project)
-                val results = engine.scanProject()
+                analyzed = DriftDetectionEngine.getInstance(project).scanProject().size
+            }
 
+            // onSuccess runs on the EDT, so the Swing table model is updated on the right thread.
+            override fun onSuccess() {
                 NotificationGroupManager.getInstance()
                     .getNotificationGroup("Dead Code Drift Radar")
                     .createNotification(
-                        "Drift scan complete: ${results.size} elements analyzed",
+                        "Drift scan complete: $analyzed elements analyzed",
                         NotificationType.INFORMATION,
                     )
                     .notify(project)

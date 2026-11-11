@@ -6,43 +6,31 @@
 
   <description><![CDATA[<h2>Dead Code & Drift Radar — Find Forgotten Code Before It Becomes Debt</h2>
 
-<p>Identify abandoned, drifting, and dead code in your project using git history and static analysis. 
-Every file gets a drift score (0-100) so you know exactly what's actively maintained and what's rotting.</p>
+<p>Identify abandoned and drifting files in your project using git history and reference analysis.
+Every scanned file gets a drift score (0-100) so you can see what is actively maintained and what is rotting.</p>
 
 <h3>Features</h3>
 <ul>
-    <li><b>Drift Score</b> — 0-100 health metric combining git history and reference analysis</li>
-    <li><b>Gutter Icons</b> — Color-coded indicators (🟢 Active, 🟡 Drifting, 🔴 Abandoned)</li>
-    <li><b>Hover Tooltips</b> — Author, last change, reference count, and drift breakdown</li>
-    <li><b>Project View Badges</b> — See drift status without opening files</li>
-    <li><b>Configurable Thresholds</b> — Define your own standards for drift boundaries</li>
-</ul>
-
-<ul>
-    <li>Method-level drift scores</li>
-    <li>Project heatmap visualization</li>
-    <li>Trend analysis and cleanup backlog</li>
-    <li>Zombie and orphan code detection</li>
-    <li>Safe-to-remove confidence scores</li>
-    <li>Export reports (SARIF, JUnit XML)</li>
-    <li>CI integration via Gradle task</li>
+    <li><b>Drift Score</b> — 0-100 per file, combining last-change age and change frequency from <code>git log</code> with incoming reference counts</li>
+    <li><b>Drift Levels</b> — Active, Cooling, Drifting and Dead, with configurable thresholds</li>
+    <li><b>Drift Radar Tool Window</b> — sortable table of scanned files with a level filter</li>
+    <li><b>Scan Project / Scan Current File</b> — under <i>Tools → Drift Radar</i></li>
+    <li><b>Ignored Paths</b> — exclude path prefixes or globs (<code>*</code>, <code>**</code>) from scanning</li>
 </ul>
 
 <h3>Requirements</h3>
 <ul>
-    <li>IntelliJ IDEA 2024.1+ (or any JetBrains IDE)</li>
-    <li>Git repository</li>
+    <li>IntelliJ IDEA 2024.2+ (or any JetBrains IDE)</li>
+    <li>A git repository and the <code>git</code> executable on the PATH</li>
 </ul>
 
 <h3>Support</h3>
 <p>
-    <a href="https://github.com/JirakJ/dead-code-drift-radar/issues">Documentation</a> |
-    <a href="https://github.com/JirakJ/dead-code-drift-radar/issues">Issue Tracker</a> |
-    <a href="https://github.com/JirakJ/dead-code-drift-radar/issues">Contact Support</a>
+    <a href="https://github.com/JirakJ/dead-code-drift-radar">Documentation</a> |
+    <a href="https://github.com/JirakJ/dead-code-drift-radar/issues">Issue Tracker</a>
 </p>]]></description>
 
   <depends>com.intellij.modules.platform</depends>
-  <depends optional="true" config-file="git4idea-extensions.xml">Git4Idea</depends>
 
   <extensions defaultExtensionNs="com.intellij">
     <!-- Settings -->
