@@ -184,3 +184,42 @@ class DriftScoreCalculatorTest {
         assertEquals(0.5, result.testCoverage)
     }
 }
+
+class DriftScoreCalculatorClockTest {
+
+    private val now = java.time.Instant.parse("2026-01-01T00:00:00Z")
+    private val calculator = DriftScoreCalculator(java.time.Clock.fixed(now, java.time.ZoneOffset.UTC))
+
+    @Test
+    fun ageScoreIsLinearOverOneYear() {
+        assertEquals(0, calculator.calculateAgeScore(now.plus(5, ChronoUnit.DAYS)))
+        assertEquals(8, calculator.calculateAgeScore(now.minus(30, ChronoUnit.DAYS)))
+        assertEquals(49, calculator.calculateAgeScore(now.minus(180, ChronoUnit.DAYS)))
+        assertEquals(99, calculator.calculateAgeScore(now.minus(364, ChronoUnit.DAYS)))
+        assertEquals(100, calculator.calculateAgeScore(now.minus(365, ChronoUnit.DAYS)))
+    }
+
+    @Test
+    fun frequencyAndReferenceScoresAreLinear() {
+        assertEquals(50, calculator.calculateFrequencyScore(5))
+        assertEquals(100, calculator.calculateFrequencyScore(-3))
+        assertEquals(70, calculator.calculateReferenceScore(3))
+    }
+
+    @Test
+    fun coverageIsClamped() {
+        assertEquals(0, calculator.calculateCoverageScore(1.5))
+        assertEquals(100, calculator.calculateCoverageScore(-0.5))
+    }
+
+    @Test
+    fun customThresholdsAreCarriedIntoTheScore() {
+        val element = CodeElement("a.kt", "A", ElementType.CLASS, 1, 0)
+        val git = GitActivityData(now, 10, 1)
+        val strict = com.jakubjirak.deadcoderadar.model.DriftThresholds(activeBelow = 0, coolingBelow = 1, driftingBelow = 2)
+        val result = calculator.calculate(element, git, referenceCount = 10, thresholds = strict)
+        // age 0, freq 0, refs 0, coverage neutral 50 * 0.15 = 7
+        assertEquals(7, result.score)
+        assertEquals(DriftLevel.DEAD, result.level)
+    }
+}

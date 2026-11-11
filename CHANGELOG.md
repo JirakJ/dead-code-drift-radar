@@ -1,5 +1,22 @@
 # Changelog
 
+## [Unreleased]
+
+### Fixed
+- Drift thresholds configured in Settings are now actually applied (levels always used the defaults).
+- Ignored-path globs with `**` never matched; patterns now support `*`, `**`, `?`, path prefixes, and
+  may be separated by newlines or commas as the settings hint says.
+- Reference counting ran PSI without a read action, so scans silently produced no results; project
+  file iteration and reference resolution now run under a read action.
+- Tool window refresh and notifications now happen on the EDT; a project scan clears stale results first.
+- `git log` errors are no longer parsed as history (stderr discarded, exit code checked, 30 s timeout).
+
+### Removed
+- Non-functional "Enable drift analysis" setting.
+- Description/README claims for features that never shipped (gutter icons, hover tooltips, project-view
+  badges, heatmap, trend analysis, zombie/orphan detection, SARIF/JUnit export, CI task), together with
+  the unused helper classes and icons behind them, and the leftover ProGuard obfuscation task.
+
 ## [2026.8.0] - 2026-11-10
 
 ### Changed

@@ -11,6 +11,7 @@ import java.time.Instant
  * @property modificationCount Number of modifications in the analysis window
  * @property referenceCount Number of incoming references found
  * @property testCoverage Optional test coverage ratio (0.0 to 1.0)
+ * @property thresholds Level boundaries used to derive [level]
  */
 data class DriftScore(
     val element: CodeElement,
@@ -19,9 +20,10 @@ data class DriftScore(
     val modificationCount: Int,
     val referenceCount: Int,
     val testCoverage: Double? = null,
+    val thresholds: DriftThresholds = DriftThresholds(),
 ) {
     val level: DriftLevel
-        get() = DriftLevel.fromScore(score)
+        get() = DriftLevel.fromScore(score, thresholds)
 
     init {
         require(score in 0..100) { "Drift score must be between 0 and 100, got $score" }
