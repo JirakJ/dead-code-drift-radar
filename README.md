@@ -64,7 +64,7 @@ Supported file types: Java, Kotlin, Python, JavaScript and TypeScript.
 
 ## 📋 Requirements
 
-- IntelliJ IDEA 2023.2+ (or any compatible JetBrains IDE)
+- IntelliJ IDEA 2024.2+ (or any compatible JetBrains IDE)
 - Git repository and the `git` executable on the PATH
 
 ## 🏗️ Building from Source

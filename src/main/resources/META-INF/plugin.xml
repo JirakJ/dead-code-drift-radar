@@ -20,7 +20,7 @@ Every scanned file gets a drift score (0-100) so you can see what is actively ma
 
 <h3>Requirements</h3>
 <ul>
-    <li>IntelliJ IDEA 2023.2+ (or any JetBrains IDE)</li>
+    <li>IntelliJ IDEA 2024.2+ (or any JetBrains IDE)</li>
     <li>A git repository and the <code>git</code> executable on the PATH</li>
 </ul>
 

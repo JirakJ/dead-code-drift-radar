@@ -11,6 +11,9 @@
 - Tool window refresh and notifications now happen on the EDT; a project scan clears stale results first.
 - `git log` errors are no longer parsed as history (stderr discarded, exit code checked, 30 s timeout).
 
+- Minimum IDE raised to 2024.2 (build 242): the plugin is compiled to Java 21 bytecode, which the
+  JBR 17 runtime of IDEs 2023.2–2024.1 cannot load, so the old `since-build` 232 was never usable there.
+
 ### Removed
 - Non-functional "Enable drift analysis" setting.
 - Description/README claims for features that never shipped (gutter icons, hover tooltips, project-view
