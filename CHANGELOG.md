@@ -2,6 +2,8 @@
 
 ## [Unreleased]
 
+## [2026.9.0] - 2026-11-11
+
 ### Fixed
 - Drift thresholds configured in Settings are now actually applied (levels always used the defaults).
 - Ignored-path globs with `**` never matched; patterns now support `*`, `**`, `?`, path prefixes, and
