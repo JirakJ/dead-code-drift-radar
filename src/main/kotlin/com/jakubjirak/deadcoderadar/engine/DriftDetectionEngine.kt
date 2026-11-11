@@ -1,5 +1,6 @@
 package com.jakubjirak.deadcoderadar.engine
 
+import com.intellij.openapi.application.ReadAction
 import com.intellij.openapi.components.Service
 import com.intellij.openapi.diagnostic.Logger
 import com.intellij.openapi.project.Project
@@ -46,9 +47,15 @@ class DriftDetectionEngine(private val project: Project) {
             val refAnalyzer = ReferenceAnalyzer(project)
 
             val gitData = gitAnalyzer.analyzeFile(file)
-            val refCount = refAnalyzer.countReferences(element)
+            // PSI resolution needs read access; git runs outside the read lock.
+            val refCount = ReadAction.compute<Int, RuntimeException> { refAnalyzer.countReferences(element) }
 
-            val score = calculator.calculate(element, gitData, refCount)
+            val score = calculator.calculate(
+                element,
+                gitData,
+                refCount,
+                thresholds = DeadCodeRadarSettings.getInstance().thresholds,
+            )
             cache[element.qualifiedId] = score
 
             listOf(score)
@@ -62,15 +69,16 @@ class DriftDetectionEngine(private val project: Project) {
      * Scans all project files and returns drift scores.
      */
     fun scanProject(): List<DriftScore> {
-        val results = mutableListOf<DriftScore>()
-        val fileIndex = ProjectFileIndex.getInstance(project)
-
-        fileIndex.iterateContent { file ->
-            if (file.extension in SUPPORTED_EXTENSIONS && !file.isDirectory) {
-                results.addAll(scanFile(file))
+        cache.clear()
+        val files = mutableListOf<VirtualFile>()
+        ReadAction.run<RuntimeException> {
+            ProjectFileIndex.getInstance(project).iterateContent { file ->
+                if (!file.isDirectory && file.extension in SUPPORTED_EXTENSIONS) files += file
+                true
             }
-            true
         }
+
+        val results = files.flatMap { scanFile(it) }
 
         LOG.info("Project scan complete: ${results.size} elements analyzed")
         return results
@@ -88,12 +96,8 @@ class DriftDetectionEngine(private val project: Project) {
         cache.clear()
     }
 
-    private fun isIgnored(path: String): Boolean {
-        val settings = DeadCodeRadarSettings.getInstance()
-        return settings.ignoredPaths.any { pattern ->
-            path.startsWith(pattern) || matchGlob(pattern, path)
-        }
-    }
+    private fun isIgnored(path: String): Boolean =
+        PathGlob.isIgnored(path, DeadCodeRadarSettings.getInstance().ignoredPaths)
 
     companion object {
         private val LOG = Logger.getInstance(DriftDetectionEngine::class.java)
@@ -101,19 +105,5 @@ class DriftDetectionEngine(private val project: Project) {
 
         fun getInstance(project: Project): DriftDetectionEngine =
             project.getService(DriftDetectionEngine::class.java)
-
-        internal fun matchGlob(pattern: String, path: String): Boolean {
-            val regex = pattern
-                .replace(".", "\\.")
-                .replace("**/", "(.*/)?")
-                .replace("*", "[^/]*")
-                .let { "^$it$" }
-            return try {
-                Regex(regex).matches(path)
-            } catch (@Suppress("TooGenericExceptionCaught") e: Exception) {
-                LOG.debug("Invalid glob pattern: $pattern", e)
-                false
-            }
-        }
     }
 }

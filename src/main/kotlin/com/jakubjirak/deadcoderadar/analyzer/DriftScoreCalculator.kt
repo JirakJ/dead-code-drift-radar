@@ -3,7 +3,9 @@ package com.jakubjirak.deadcoderadar.analyzer
 import com.intellij.openapi.diagnostic.Logger
 import com.jakubjirak.deadcoderadar.model.CodeElement
 import com.jakubjirak.deadcoderadar.model.DriftScore
+import com.jakubjirak.deadcoderadar.model.DriftThresholds
 import com.jakubjirak.deadcoderadar.model.GitActivityData
+import java.time.Clock
 import java.time.Duration
 import java.time.Instant
 
@@ -16,7 +18,7 @@ import java.time.Instant
  * - Reference count: fewer references = higher drift (weight: 0.25)
  * - Test coverage: lower coverage = higher drift (weight: 0.15)
  */
-class DriftScoreCalculator {
+class DriftScoreCalculator(private val clock: Clock = Clock.systemUTC()) {
 
     /**
      * Calculates drift score for a code element.
@@ -25,6 +27,7 @@ class DriftScoreCalculator {
      * @param gitData Git activity data for the element
      * @param referenceCount Number of incoming references
      * @param testCoverage Optional test coverage (0.0-1.0)
+     * @param thresholds Level boundaries used to classify the resulting score
      * @return DriftScore with computed score 0-100
      */
     fun calculate(
@@ -32,6 +35,7 @@ class DriftScoreCalculator {
         gitData: GitActivityData,
         referenceCount: Int,
         testCoverage: Double? = null,
+        thresholds: DriftThresholds = DriftThresholds(),
     ): DriftScore {
         val ageScore = calculateAgeScore(gitData.lastModified)
         val frequencyScore = calculateFrequencyScore(gitData.modificationCount)
@@ -57,26 +61,26 @@ class DriftScoreCalculator {
             modificationCount = gitData.modificationCount,
             referenceCount = referenceCount,
             testCoverage = testCoverage,
+            thresholds = thresholds,
         )
     }
 
     /**
-     * Scores how old the last modification is. Older = higher drift.
-     * - Modified today: 0
-     * - Modified 30 days ago: ~25
-     * - Modified 180 days ago: ~60
-     * - Modified 365+ days ago: ~90-100
+     * Scores how old the last modification is. Older = higher drift, linear over one year:
+     * - Modified today (or in the future): 0
+     * - Modified 30 days ago: 8
+     * - Modified 180 days ago: 49
+     * - Modified 365+ days ago or unknown: 100
      */
     internal fun calculateAgeScore(lastModified: Instant?): Int {
         if (lastModified == null) return MAX_SCORE
 
-        val daysSinceModification = Duration.between(lastModified, Instant.now()).toDays()
+        val daysSinceModification = Duration.between(lastModified, clock.instant()).toDays()
         return when {
             daysSinceModification <= 0 -> 0
-            daysSinceModification <= AGE_RECENT_DAYS -> (daysSinceModification * MAX_SCORE / AGE_OLD_DAYS).toInt()
-            daysSinceModification <= AGE_OLD_DAYS -> (daysSinceModification * MAX_SCORE / AGE_OLD_DAYS).toInt()
-            else -> MAX_SCORE
-        }.coerceIn(0, MAX_SCORE)
+            daysSinceModification >= AGE_OLD_DAYS -> MAX_SCORE
+            else -> (daysSinceModification * MAX_SCORE / AGE_OLD_DAYS).toInt()
+        }
     }
 
     /**
@@ -126,7 +130,6 @@ class DriftScoreCalculator {
         const val WEIGHT_REFERENCES = 0.25
         const val WEIGHT_COVERAGE = 0.15
 
-        const val AGE_RECENT_DAYS = 30L
         const val AGE_OLD_DAYS = 365L
 
         const val FREQ_HIGH_THRESHOLD = 10

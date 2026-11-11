@@ -16,7 +16,6 @@ import com.jakubjirak.deadcoderadar.ui.DriftRadarPanel
 
 /**
  * Action to scan the currently open file for code drift.
- * Available in free tier.
  */
 class ScanFileAction : AnAction() {
     override fun getActionUpdateThread(): ActionUpdateThread = ActionUpdateThread.BGT
@@ -30,11 +29,15 @@ class ScanFileAction : AnAction() {
         ProgressManager.getInstance().run(object : Task.Backgroundable(
             project, "Scanning file for drift...", true
         ) {
+            private var results = emptyList<com.jakubjirak.deadcoderadar.model.DriftScore>()
+
             override fun run(indicator: ProgressIndicator) {
                 indicator.isIndeterminate = true
-                val engine = DriftDetectionEngine.getInstance(project)
-                val results = engine.scanFile(file)
+                results = DriftDetectionEngine.getInstance(project).scanFile(file)
+            }
 
+            // onSuccess runs on the EDT, so the Swing table model is updated on the right thread.
+            override fun onSuccess() {
                 val message = if (results.isNotEmpty()) {
                     val score = results.first()
                     "Drift score for ${file.name}: ${score.score} (${score.level.label})"

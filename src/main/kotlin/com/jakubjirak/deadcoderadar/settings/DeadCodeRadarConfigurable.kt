@@ -12,14 +12,6 @@ class DeadCodeRadarConfigurable : BoundConfigurable("Dead Code & Drift Radar") {
     override fun createPanel() = panel {
         val settings = DeadCodeRadarSettings.getInstance()
 
-        group("General") {
-            row {
-                checkBox("Enable drift analysis")
-                    .bindSelected(settings::enabled)
-                    .comment("When enabled, the plugin continuously monitors code drift levels across the project")
-            }
-        }
-
         group("Drift Thresholds") {
             row("Active threshold:") {
                 spinner(0..100)
@@ -42,7 +34,7 @@ class DeadCodeRadarConfigurable : BoundConfigurable("Dead Code & Drift Radar") {
             row("Ignored paths:") {
                 expandableTextField()
                     .bindText(settings::ignoredPathsText)
-                    .comment("Comma-separated list of paths to ignore during scanning")
+                    .comment("Project-relative path prefixes or globs (<code>*</code>, <code>**</code>), one per line or comma-separated")
                     .align(AlignX.FILL)
             }
         }
